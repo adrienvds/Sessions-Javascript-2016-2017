@@ -1,0 +1,126 @@
+function preload() {
+
+    game.load.baseURL = 'http://examples.phaser.io/assets/';
+    game.load.crossOrigin = 'anonymous';
+    game.load.image('phaser', 'sprites/phaser-dude.png');
+    game.load.image('orb', 'sprites/orb-red.png');
+
+}   
+
+
+
+
+
+
+
+var jump=-400;
+var score=0;
+var orb;
+var up=5;
+var down=5;
+var speed=100;
+var arrows;
+var player;
+score=score+1
+function create() {
+    scoretexte=game.add.text(20,100,"score="+score,{fill:"#ffffff",font:"16px Permanent Marker",align:"center"});
+    
+    
+    
+    
+    game.stage.backgroundColor="#AA2222";
+    
+    game.physics.startSystem(Phaser.Physics.Arcade);
+    game.physics.arcade.gravity.y=980;
+    
+    player = game.add.sprite(0, 0, 'phaser');
+    game.physics.arcade.enable(player);
+    player.body.collideWorldBounds=true;
+    
+    orb=game.add.sprite(600,180,'orb'); 
+    game.physics.arcade.enable(orb);
+    orb.body.allowGravity=false;
+    orb.anchor.setTo(0.5,0.5);
+    
+    
+    
+    arrows=game.input.keyboard.createCursorKeys();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+function update() {
+    /*if(arrows.left.isDown)
+    { 
+        player.x=player.x-speed; 
+        //sprite.x-speed;
+    }else if(arrows.right.isDown){
+        player.x=player.x+speed;  
+     
+    }
+    if(arrows.down.isDown){
+        player.y=player.y+down;
+        
+        
+    }
+    if(arrows.up.isDown){
+        player.y=player.y-down;
+    }*/
+    checkkeys();
+    animateOrb(orb,150);
+    game.physics.arcade.overlap(player,orb,miam,null,this);
+    
+    
+    
+    
+}
+function animateOrb(myOrb,speedOrb){
+    myOrb.body.angularVelocity=speedOrb;   
+}
+
+ function miam(a,b)
+ {
+     //console.log("miam");
+     var newx=game.rnd.integerInRange(0,800);
+     var newy=game.rnd.integerInRange(0,600);
+     b.reset(newx ,newy);
+     score=score+1;
+     scoretexte.text="score="+score;
+ }
+function checkkeys(){
+    if(arrows.left.isDown)
+    {
+        player.body.velocity.x=-speed;
+    }else if(arrows.right.isDown){
+        //player.x=player.x+speed;  
+     player.body.velocity.x= speed;
+    } else if(arrows.up.downDurachen){
+        //player.y=player.y-down;
+        player.body.velocity.y= jump;
+    }
+}
+    
+    
+
+
+
+
+
+
+
+
+
+function render() {
+  //  game.debug.body(orb);
+  //  game.debug.body(player);
+}
