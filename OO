@@ -1,0 +1,38 @@
+
+function player(){
+    this.nom="jack";
+    this.experience=150;
+    this.afficher=function(){
+      var resultat=experience;
+      return resultat;
+    }
+    //console.log(j.experience)
+     this.getNom=function(){
+      return nom;  
+    }
+    this.setNom=function(nouveau){
+      nom=nouveau;
+    }
+}
+
+function jeu(){
+     this.joueurs=[];
+     this.creerjoueur=function(){
+       var j1=new joueur();
+       var j2=new joueur();
+       joueurs.push(j1)
+       joueurs.push(j2)
+     }
+     this.ajouterJoueur=function(j){
+       this.joueurs.push(j);
+     }
+     this.afficherJoueur=function(){
+       var indice =0;
+       var longueur= this.joueurs.length;
+       
+       for (indice;indice<longueur;indice++){
+         this.joueurs[indice].afficher();
+       }
+     }
+ }
+
